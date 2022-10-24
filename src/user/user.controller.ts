@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
+import { JwtGuard } from 'src/auth/gaurd';
 import { SearchDto } from './dto';
 import { UserService } from './user.service';
 
@@ -8,7 +9,7 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtGuard)
   @Get('me')
   getMe(@Req() req: Request) {
     return req.user;
